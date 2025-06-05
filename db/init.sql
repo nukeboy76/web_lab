@@ -57,6 +57,17 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Feedback messages from contact form
+CREATE TABLE IF NOT EXISTS feedback (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  created_at DATETIME NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  topic VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  doc_url VARCHAR(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Insert sample products
 INSERT INTO product (manufacturer_id,name,alias,short_description,description,price,image,available,meta_keywords,meta_description,meta_title)
 VALUES
