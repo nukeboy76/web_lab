@@ -31,8 +31,10 @@
       <li><a href="../about.html">О нас</a></li>
       <li><a href="../catalog.html">Каталог</a></li>
       <li><a href="../contacts.html">Контакты</a></li>
+      <li><a href="../guestbook.php">Отзывы</a></li>
+      <li><a href="../register.html">Регистрация</a></li>
     </ul>
-    <form id="site-search">
+    <form id="site-search" method="get" action="../search.php">
       <input type="text" name="q" placeholder="поиск">
       <input type="submit" value="искать">
     </form>
@@ -49,13 +51,13 @@
     </ul>
   </aside>
 
-  <article>
+  <article class="product-detail">
     <h2>CRM‑PRO</h2>
     <h3>Описание товара</h3>
     <a href="../images/crm-full.jpg" target="_blank">
-      <img src="../images/crm-full.jpg" alt="CRM‑PRO" style="max-width:350px;float:right;margin:0 0 10px 20px">
+      <img src="../images/crm-full.jpg" alt="CRM‑PRO">
     </a>
-    <p>CRM‑PRO — флагманская система управления взаимоотношениями с&nbsp;клиентами,
+    <p class="short-desc">CRM‑PRO — флагманская система управления взаимоотношениями с&nbsp;клиентами,
        оптимизированная под российское законодательство и интегрированная
        c&nbsp;1С:Бухгалтерией.</p>
 
@@ -68,7 +70,7 @@
     </ul>
 
     <h3>Подробное описание товара</h3>
-    <p>CRM‑PRO включает расширенную автоматизацию продаж, маркетинговых и
+    <p class="long-desc">CRM‑PRO включает расширенную автоматизацию продаж, маркетинговых и
        сервисных процессов. Модуль BI позволяет строить сквозную аналитику,
        а&nbsp;интеграционный шлюз REST API гарантирует бесшовный обмен данными
        с&nbsp;ERP‑системами.</p>

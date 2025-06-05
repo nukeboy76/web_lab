@@ -229,6 +229,7 @@ hr {
   border: 2px solid #ccc;
   border-radius: 4px;
 }
+.product-detail ul { list-style: square inside; margin-bottom: 12px; }
 
 .contacts input[type="text"],
 .contacts input[type="email"],
