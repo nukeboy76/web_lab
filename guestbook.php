@@ -1,18 +1,25 @@
 <?php
-$file = __DIR__.'/data/guestbook.txt';
 $posted = false;
+require_once __DIR__.'/db.php';
+$mysqli = get_db_connection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $comment = trim($_POST['comment'] ?? '');
-    $rating = $_POST['rating'] ?? '';
-    $subscribe = isset($_POST['subscribe']) ? 'yes' : 'no';
+    $rating = intval($_POST['rating'] ?? 0);
+    $subscribe = isset($_POST['subscribe']) ? 1 : 0;
     $city = trim($_POST['city'] ?? '');
     $product = $_POST['product'] ?? '';
-    $entry = date('Y-m-d H:i')."\t$name\t$city\t$rating\t$subscribe\t$product\t".str_replace("\n"," ",$comment)."\n";
-    file_put_contents($file, $entry, FILE_APPEND|LOCK_EX);
-    $posted = true;
+
+    if ($name !== '' && $comment !== '') {
+        $stmt = $mysqli->prepare('INSERT INTO guestbook (created_at,name,city,rating,subscribe,product,comment) VALUES (NOW(),?,?,?,?,?,?)');
+        $stmt->bind_param('ssiiss', $name, $city, $rating, $subscribe, $product, $comment);
+        $stmt->execute();
+        $stmt->close();
+        $posted = true;
+    }
 }
-$entries = file_exists($file) ? file($file, FILE_IGNORE_NEW_LINES) : [];
+$res = $mysqli->query('SELECT created_at,name,city,rating,subscribe,product,comment FROM guestbook ORDER BY created_at DESC');
+$entries = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -97,8 +104,8 @@ $entries = file_exists($file) ? file($file, FILE_IGNORE_NEW_LINES) : [];
 
     <h3>Последние отзывы</h3>
     <div style="max-height:200px; overflow:auto; border:1px solid #ccc; padding:5px;">
-    <?php foreach(array_reverse($entries) as $line): list($dt,$n,$c,$r,$s,$p,$comm)=explode("\t",$line); ?>
-      <p><b><?=htmlspecialchars($n)?></b> (<?=htmlspecialchars($c)?>) — <?=htmlspecialchars($p)?> — оценка <?=htmlspecialchars($r)?>:<br><?=htmlspecialchars($comm)?></p>
+    <?php foreach($entries as $e): ?>
+      <p><b><?=htmlspecialchars($e['name'])?></b> (<?=htmlspecialchars($e['city'])?>) — <?=htmlspecialchars($e['product'])?> — оценка <?=htmlspecialchars($e['rating'])?>:<br><?=htmlspecialchars($e['comment'])?></p>
       <hr>
     <?php endforeach; ?>
     </div>
