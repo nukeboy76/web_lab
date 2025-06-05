@@ -6,6 +6,7 @@ const products = [
       category:'CRM/ERP',
       short:'Корпоративная CRM‑система для среднего и крупного бизнеса.',
       thumb:'images/crm-thumb.jpg',
+      price: 135000,
       full:'images/crm-full.jpg',
       url:'product/crm-pro.html'
     },
@@ -15,6 +16,7 @@ const products = [
       category:'Мобильные приложения',
       short:'Нативные iOS/Android приложения «под ключ».',
       thumb:'images/mobile-thumb.jpg',
+      price: 89000,
       full:'images/mobile-full.jpg',
       url:'product/mobile-suite.html'
     },
@@ -24,6 +26,7 @@ const products = [
       category:'Облачные сервисы',
       short:'Оркестрация Docker/K8s для хостинга SaaS‑платформ.',
       thumb:'images/cloud-full-thumb.jpg',
+      price: 159000,
       full:'images/cloud-full.jpg',
       url:'product/cloud-stack.html'
     },
@@ -33,6 +36,7 @@ const products = [
       category:'Корпоративные порталы',
       short:'Гибкий интранет‑портал с SSO и каталогом сервисов.',
       thumb:'images/portal-thumb.jpg',
+      price: 112000,
       full:'images/portal-full.jpg',
       url:'product/portal-x.html'
     }
@@ -72,9 +76,10 @@ const products = [
       const card = document.createElement('div');
       card.className='card';
       card.innerHTML=`
-        <img src="${p.thumb}" alt="${p.name}">
-        <h4>${p.name}</h4>
-        <p>${p.short}</p>
+        <div class="card__image"><img src="${p.thumb}" alt="${p.name}"></div>
+        <h4 class="card__title">${p.name}</h4>
+        <p class="price">${p.price}</p>
+        <button class="card__add">В корзину</button>
         <a href="${p.url}">Подробнее →</a>
       `;
       wrap.append(card);
