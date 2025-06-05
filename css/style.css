@@ -408,3 +408,13 @@ footer {
   border-top: 3px solid #e67e22;
   margin-top: 40px;
 }
+
+.guestbook-list p {
+  margin: 0 0 6px;
+}
+
+.guestbook-list hr {
+  margin: 6px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
