@@ -81,16 +81,37 @@ const products = [
     });
   }
   
-  function applyFilter(){
-    const q = document.getElementById('search').value.trim().toLowerCase();
+  async function applyFilter(){
+    const q = document.getElementById('search').value.trim();
     const cat = document.getElementById('category').value;
-  
-    const filtered = products.filter(p=>{
-      const okCat = cat==='Все' || p.category===cat;
-      const okSearch = p.name.toLowerCase().includes(q);
-      return okCat && okSearch;
-    });
-    renderCards(filtered);
+
+    if(q===''){
+      const filtered = products.filter(p=>{
+        return cat==='Все' || p.category===cat;
+      });
+      renderCards(filtered);
+      return;
+    }
+
+    try{
+      const resp = await fetch(`search.php?format=json&q=${encodeURIComponent(q)}`);
+      if(!resp.ok) throw new Error('server');
+      const data = await resp.json();
+      let list = data.map(r=>{
+        const local = products.find(p=>p.name===r.name) || {};
+        return {
+          name:r.name,
+          short:r.desc || local.short || '',
+          thumb:local.thumb || 'images/crm-thumb.jpg',
+          url:r.url,
+          category:local.category || ''
+        };
+      });
+      if(cat!=='Все') list = list.filter(p=>p.category===cat);
+      renderCards(list);
+    }catch(e){
+      renderCards([]);
+    }
   }
   
   /* --------  ИНИЦИАЛИЗАЦИЯ -------- */
