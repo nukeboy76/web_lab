@@ -1,9 +1,18 @@
-// ======= мини‑логин без сервера =======
+// ======= авторизация через сервер =======
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
-    const storedUser = localStorage.getItem('user');
 
-    function showUser(user) {
+    async function fetchState() {
+        try {
+            const res = await fetch('auth_state.php');
+            if (!res.ok) return null;
+            return await res.json();
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async function showUser(name) {
         if (!loginForm) return;
         loginForm.style.display = 'none';
         let info = document.getElementById('user-info');
@@ -11,20 +20,40 @@ document.addEventListener('DOMContentLoaded', () => {
             info = document.createElement('div');
             info.id = 'user-info';
             loginForm.after(info);
+        } else {
+            info.innerHTML = '';
         }
-        info.textContent = `Вы вошли как ${user}`;
+        const icon = document.createElement('span');
+        icon.className = 'user-icon';
+        icon.textContent = '\u{1F464}';
+        const logout = document.createElement('button');
+        logout.id = 'logout-btn';
+        logout.textContent = 'выход';
+        logout.addEventListener('click', async () => {
+            await fetch('logout.php');
+            info.remove();
+            loginForm.style.display = '';
+        });
+        info.appendChild(icon);
+        info.appendChild(logout);
     }
 
     if (loginForm) {
-        if (storedUser) {
-            showUser(storedUser);
-        }
-        loginForm.addEventListener('submit', e => {
+        fetchState().then(state => {
+            if (state && state.loggedIn) showUser(state.name);
+        });
+
+        loginForm.addEventListener('submit', async e => {
             e.preventDefault();
-            const user = e.target.login.value.trim() || 'гость';
-            localStorage.setItem('user', user);
-            showUser(user);
-            e.target.reset();
+            const fd = new FormData(loginForm);
+            const res = await fetch('login.php', { method: 'POST', body: fd });
+            if (res.ok) {
+                const data = await res.json();
+                showUser(data.name);
+                loginForm.reset();
+            } else {
+                alert('Неверный логин или пароль');
+            }
         });
     }
   
