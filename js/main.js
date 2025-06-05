@@ -73,6 +73,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const guestForm = document.getElementById('guestbook-form');
+    const guestList = document.getElementById('guestbook-list');
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, t => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[t]));
+    }
+
+    async function loadReviews() {
+        if (!guestList) return;
+        const res = await fetch('guestbook.php?format=json');
+        if (!res.ok) return;
+        const data = await res.json();
+        guestList.innerHTML = '';
+        for (const e of data) {
+            const p = document.createElement('p');
+            const stars = '★'.repeat(e.rating) + '☆'.repeat(5 - e.rating);
+            p.innerHTML = `<b>${escapeHtml(e.name)}</b> (${escapeHtml(e.city)}) — ${escapeHtml(e.product)} — ${stars}:<br>${escapeHtml(e.comment)}`;
+            guestList.appendChild(p);
+            guestList.appendChild(document.createElement('hr'));
+        }
+    }
+
+    if (guestForm) {
+        loadReviews();
+        guestForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const fd = new FormData(guestForm);
+            const res = await fetch(guestForm.action, { method: 'POST', body: fd });
+            if (res.ok) {
+                guestForm.reset();
+                loadReviews();
+            } else {
+                const data = await res.json().catch(() => null);
+                alert(data && data.error ? data.error : 'Ошибка отправки');
+            }
+        });
+    }
   
     // ======= подсветка активного пункта верхнего меню =======
     const current = location.pathname.split('/').pop();

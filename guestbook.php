@@ -1,25 +1,62 @@
 <?php
-$posted = false;
 require_once __DIR__.'/db.php';
+
 $mysqli = get_db_connection();
+header('Cache-Control: no-store');
+
+$format = $_GET['format'] ?? '';
+$posted = false;
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $comment = trim($_POST['comment'] ?? '');
     $rating = intval($_POST['rating'] ?? 0);
     $subscribe = isset($_POST['subscribe']) ? 1 : 0;
     $city = trim($_POST['city'] ?? '');
-    $product = $_POST['product'] ?? '';
+    $product = trim($_POST['product'] ?? '');
 
-    if ($name !== '' && $comment !== '') {
+    if ($name === '' || $comment === '') {
+        $errors[] = 'Заполните имя и комментарий.';
+    }
+    if ($rating < 1 || $rating > 5) {
+        $errors[] = 'Некорректный рейтинг.';
+    }
+
+    if (!$errors) {
         $stmt = $mysqli->prepare('INSERT INTO guestbook (created_at,name,city,rating,subscribe,product,comment) VALUES (NOW(),?,?,?,?,?,?)');
-        $stmt->bind_param('ssiiss', $name, $city, $rating, $subscribe, $product, $comment);
-        $stmt->execute();
-        $stmt->close();
-        $posted = true;
+        if ($stmt) {
+            $stmt->bind_param('ssiiss', $name, $city, $rating, $subscribe, $product, $comment);
+            $stmt->execute();
+            $stmt->close();
+            $posted = true;
+        } else {
+            $errors[] = 'DB error';
+        }
+    }
+
+    if ($format === 'json') {
+        header('Content-Type: application/json; charset=utf-8');
+        if ($errors) {
+            http_response_code(400);
+            echo json_encode(['error' => implode(' ', $errors)], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(['ok' => true]);
+        }
+        $mysqli->close();
+        exit;
     }
 }
+
 $res = $mysqli->query('SELECT created_at,name,city,rating,subscribe,product,comment FROM guestbook ORDER BY created_at DESC');
 $entries = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
+
+if ($format === 'json') {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($entries, JSON_UNESCAPED_UNICODE);
+    $mysqli->close();
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -69,7 +106,7 @@ $entries = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
   <article>
     <h2>Гостевая книга</h2>
     <?php if($posted): ?><p>Спасибо за отзыв!</p><?php endif; ?>
-    <form method="post" action="guestbook.php" class="contacts">
+    <form method="post" action="guestbook.php?format=json" class="contacts" id="guestbook-form">
       <label><span>Имя</span>
         <input type="text" name="name" required>
       </label>
@@ -103,9 +140,10 @@ $entries = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
     </form>
 
     <h3>Последние отзывы</h3>
-    <div style="max-height:200px; overflow:auto; border:1px solid #ccc; padding:5px;">
+    <div id="guestbook-list" class="guestbook-list" style="max-height:200px; overflow:auto; border:1px solid #ccc; padding:5px;">
     <?php foreach($entries as $e): ?>
-      <p><b><?=htmlspecialchars($e['name'])?></b> (<?=htmlspecialchars($e['city'])?>) — <?=htmlspecialchars($e['product'])?> — оценка <?=htmlspecialchars($e['rating'])?>:<br><?=htmlspecialchars($e['comment'])?></p>
+      <?php $stars = str_repeat('★', (int)$e['rating']) . str_repeat('☆', 5 - (int)$e['rating']); ?>
+      <p><b><?=htmlspecialchars($e['name'])?></b> (<?=htmlspecialchars($e['city'])?>) — <?=htmlspecialchars($e['product'])?> — <?= $stars ?>:<br><?=htmlspecialchars($e['comment'])?></p>
       <hr>
     <?php endforeach; ?>
     </div>
