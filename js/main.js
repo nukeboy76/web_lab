@@ -58,6 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const fd = new FormData(contactForm);
+            const res = await fetch(contactForm.action, { method: 'POST', body: fd });
+            if (res.ok) {
+                contactForm.innerHTML = '<p>Спасибо, ваше сообщение отправлено.</p>';
+            } else {
+                const data = await res.json().catch(() => null);
+                alert(data && data.error ? data.error : 'Ошибка отправки');
+            }
+        });
+    }
   
     // ======= подсветка активного пункта верхнего меню =======
     const current = location.pathname.split('/').pop();
