@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Mobile‑Suite — подробное описание</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script defer src="../js/main.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ===== ШАПКА ===== -->
+<header>
+  <div class="logo">
+    <img src="../images/logo.jpg" alt="Логотип Галактики">
+  </div>
+  <div class="site-title">ГАЛАКТИКА</div>
+
+  <!-- мини‑форма входа -->
+  <form id="login-form">
+    <input type="text"     name="login" placeholder="логин" required>
+    <input type="password" name="pass"  placeholder="пароль" required>
+    <input type="submit"   value="Войти">
+  </form>
+</header>
+
+  <!-- ===== ГОРИЗОНТАЛЬНОЕ МЕНЮ + ПОИСК ===== -->
+  <nav class="top">
+    <ul class="nav-links">
+      <li><a href="../index.html">Главная</a></li>
+      <li><a href="../about.html">О нас</a></li>
+      <li><a href="../catalog.html">Каталог</a></li>
+      <li><a href="../contacts.html">Контакты</a></li>
+    </ul>
+    <form id="site-search">
+      <input type="text" name="q" placeholder="поиск">
+      <input type="submit" value="искать">
+    </form>
+  </nav>
+
+<main>
+  <!-- боковое меню -->
+  <aside class="sidebar-left">
+    <ul>
+      <li><a href="../index.html">Страница 1</a></li>
+      <li><a href="../about.html">Страница 2</a></li>
+      <li><a href="../catalog.html">Страница 3</a></li>
+      <li><a href="../contacts.html">Страница 4</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h2>Mobile‑Suite</h2>
+    <h3>Описание товара</h3>
+    <a href="../images/mobile-full.jpg" target="_blank">
+      <img src="../images/mobile-thumb.jpg" alt="Mobile‑Suite" style="max-width:350px;float:right;margin:0 0 10px 20px">
+    </a>
+    <p>Mobile‑Suite — комплексная разработка нативных мобильных приложений для iOS и Android с полным циклом поддержки
+       и публикации в App Store и Google Play.</p>
+
+    <h3>Характеристики товара</h3>
+    <ul>
+      <li>Разработка на Swift (iOS) и Kotlin (Android)</li>
+      <li>Интеграция с REST/GraphQL API</li>
+      <li>Push‑уведомления и аналитика (Firebase, Amplitude)</li>
+      <li>Автоматическое тестирование на реальных устройствах</li>
+    </ul>
+
+    <h3>Подробное описание товара</h3>
+    <p>В состав Mobile‑Suite входят дизайн‑макеты, прототипирование, написание кода, CI/CD‑конвейер и публикация.
+       Мы обеспечиваем безопасность хранения пользовательских данных, соблюдаем требования App Store и Play Market,
+       а также гарантируем трехмесячную поддержку после запуска проекта.</p>
+  </article>
+  <!-- справа — баннеры -->
+  <aside class="sidebar-right">
+    <!-- CRM‑баннер -->
+    <div class="banner">
+      <a href="https://www.salesforce.com/crm/what-is-crm/" target="_blank">
+        <img
+          src="https://www.techmatrixconsulting.com/images/services/crm-banner-mob.jpg"
+          alt="Salesforce CRM"
+        >
+      </a>
+    </div>
+
+    <!-- Mobile‑баннер -->
+    <div class="banner">
+      <a href="https://developer.android.com/" target="_blank">
+        <img
+          src="https://i.pinimg.com/236x/58/52/82/585282f0fa2543021550dd06f145a073.jpg"
+          alt="Android Mobile Development"
+        >
+      </a>
+    </div>
+
+    <!-- Cloud‑баннер -->
+    <div class="banner">
+      <a href="https://aws.amazon.com/products/compute/" target="_blank">
+        <img
+          src="https://avatars.mds.yandex.net/i?id=87ab1b5f1ad3f72f5e0d0c4d5ccce48ff0c3a698-4955727-images-thumbs&n=13"
+          alt="AWS Cloud Compute"
+        >
+      </a>
+    </div>
+    <p class="banner-note">(кликните на баннер для перехода к товару)</p>
+  </aside>
+</main>
+
+<footer id="footer">
+  &copy;&nbsp;2025 ООО «Галактика». Все права защищены
+</footer>
+
+</body>
+</html>

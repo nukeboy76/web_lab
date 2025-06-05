@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Галактика — личный кабинет</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- ===== ШАПКА ===== -->
+<header>
+
+    <div class="logo">
+        <img src="images/logo.jpg" alt="Логотип Галактики">
+    </div>
+    <div class="site-title">ГАЛАКТИКА</div>
+
+    <!-- мини‑форма входа -->
+    <form id="login-form">
+    <input type="text"     name="login" placeholder="логин" required>
+    <input type="password" name="pass"  placeholder="пароль" required>
+    <input type="submit"   value="Войти">
+    </form>
+</header>
+
+<nav class="top">
+  <ul>
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="about.html">О нас</a></li>
+    <li><a href="catalog.html">Каталог</a></li>
+    <li><a href="contacts.html">Контакты</a></li>
+  </ul>
+</nav>
+
+<main>
+  <aside>
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="about.html">О нас</a></li>
+        <li><a href="catalog.html">Каталог</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h2>Личный кабинет</h2>
+    <p>Демонстрационная страница авторизации. Реального back‑end здесь нет.</p>
+    <form style="max-width:300px">
+      <label>Логин
+        <input type="text" required>
+      </label>
+      <label>Пароль
+        <input type="password" required>
+      </label>
+      <input type="submit" value="Войти">
+    </form>
+  </article>
+</main>
+
+<footer id="footer">
+  &copy;&nbsp;2025 ООО «Галактика». Все права защищены
+</footer>
+</body>
+</html>
