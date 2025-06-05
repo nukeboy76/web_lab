@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/db.php';
+session_start();
 $errors = [];
 $success = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,26 +11,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($name === '' || $email === '' || $pass === '' || $pass2 === '') {
         $errors[] = 'Заполните все поля.';
+    } elseif (!preg_match('/^[\wА-Яа-я]{3,20}$/u', $name)) {
+        $errors[] = 'Некорректный ник. Допустимы буквы и цифры, 3-20 символов.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Некорректный email.';
     } elseif ($pass !== $pass2) {
         $errors[] = 'Пароли не совпадают.';
+    } elseif (mb_strlen($pass) < 6 || !preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $pass)) {
+        $errors[] = 'Пароль должен быть не короче 6 символов и содержать буквы и цифры.';
     }
 
     if (!$errors) {
-        $hash = password_hash($pass, PASSWORD_DEFAULT);
         $mysqli = get_db_connection();
-        $stmt = $mysqli->prepare('INSERT INTO users (name,email,password_hash) VALUES (?,?,?)');
-        if(!$stmt){
-            $errors[] = 'DB error';
-        } else {
-            $stmt->bind_param('sss', $name, $email, $hash);
-            if($stmt->execute()) {
-                $success = true;
+
+        $stmt = $mysqli->prepare('SELECT id FROM users WHERE email=? OR name=?');
+        $stmt->bind_param('ss', $email, $name);
+        $stmt->execute();
+        if ($stmt->get_result()->fetch_assoc()) {
+            $errors[] = 'Пользователь с таким email или ником уже существует.';
+        }
+        $stmt->close();
+
+        if (!$errors) {
+            $hash = password_hash($pass, PASSWORD_DEFAULT);
+            $stmt = $mysqli->prepare('INSERT INTO users (name,email,password_hash) VALUES (?,?,?)');
+            if(!$stmt){
+                $errors[] = 'DB error';
             } else {
-                $errors[] = 'Не удалось сохранить данные.';
+                $stmt->bind_param('sss', $name, $email, $hash);
+                if($stmt->execute()) {
+                    $success = true;
+                    $_SESSION['user_id'] = $stmt->insert_id;
+                    $_SESSION['user_name'] = $name;
+                } else {
+                    $errors[] = 'Не удалось сохранить данные.';
+                }
+                $stmt->close();
             }
-            $stmt->close();
         }
         $mysqli->close();
     }
@@ -83,7 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if($success): ?>
       <p class="notice">Регистрация прошла успешно.</p>
       <script>
-        localStorage.setItem('user', <?=json_encode($name)?>);
         setTimeout(function(){ location.href='index.html'; }, 2000);
       </script>
     <?php else: ?>
