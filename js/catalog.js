@@ -23,7 +23,7 @@ const products = [
       name:'Cloud‑Stack',
       category:'Облачные сервисы',
       short:'Оркестрация Docker/K8s для хостинга SaaS‑платформ.',
-      thumb:'images/cloud-full.jpg',
+      thumb:'images/cloud-full-thumb.jpg',
       full:'images/cloud-full.jpg',
       url:'product/cloud-stack.html'
     },
