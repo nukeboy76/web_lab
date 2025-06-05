@@ -235,8 +235,35 @@ hr {
 }
 .product-detail ul { list-style: square inside; margin-bottom: 12px; }
 
+.contacts {
+  max-width: 540px;
+}
+
+.contacts label {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.contacts label span {
+  width: 220px;
+  text-align: right;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.contacts .rating-options {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 300px;
+}
+
 .contacts input[type="text"],
 .contacts input[type="email"],
+.contacts input[type="password"],
+.contacts input[type="url"],
+.contacts select,
 .contacts textarea {
   width: 300px;
   height: 30px;

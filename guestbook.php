@@ -63,13 +63,13 @@ $entries = file_exists($file) ? file($file, FILE_IGNORE_NEW_LINES) : [];
     <h2>Гостевая книга</h2>
     <?php if($posted): ?><p>Спасибо за отзыв!</p><?php endif; ?>
     <form method="post" action="guestbook.php" class="contacts">
-      <label>Имя
+      <label><span>Имя</span>
         <input type="text" name="name" required>
       </label>
-      <label>Город
+      <label><span>Город</span>
         <input type="text" name="city">
       </label>
-      <label>Любимый продукт
+      <label><span>Любимый продукт</span>
         <select name="product">
           <option value="CRM‑PRO">CRM‑PRO</option>
           <option value="Mobile‑Suite">Mobile‑Suite</option>
@@ -77,15 +77,19 @@ $entries = file_exists($file) ? file($file, FILE_IGNORE_NEW_LINES) : [];
           <option value="Portal‑X">Portal‑X</option>
         </select>
       </label>
-      <label>Оценка
-        <input type="radio" name="rating" value="1">1
-        <input type="radio" name="rating" value="2">2
-        <input type="radio" name="rating" value="3" checked>3
-        <input type="radio" name="rating" value="4">4
-        <input type="radio" name="rating" value="5">5
+      <label><span>Оценка</span>
+        <span class="rating-options">
+          <input type="radio" name="rating" value="1">1
+          <input type="radio" name="rating" value="2">2
+          <input type="radio" name="rating" value="3" checked>3
+          <input type="radio" name="rating" value="4">4
+          <input type="radio" name="rating" value="5">5
+        </span>
       </label>
-      <label><input type="checkbox" name="subscribe" value="1"> Подписаться на новости</label>
-      <label>Комментарий
+      <label><span>Подписаться на новости</span>
+        <input type="checkbox" name="subscribe" value="1">
+      </label>
+      <label><span>Комментарий</span>
         <textarea name="comment" rows="4" cols="40"></textarea>
       </label>
       <button type="submit">Отправить</button>
