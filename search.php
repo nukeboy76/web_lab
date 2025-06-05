@@ -8,26 +8,21 @@ if ($search_q !== '') {
     if (!preg_match('/^\p{L}$/u', $letter)) {
         $error = 'Введите одну букву.';
     } else {
-        $mysqli = new mysqli(
-            getenv('DB_HOST'),
-            getenv('DB_USER'),
-            getenv('DB_PASS'),
-            getenv('DB_NAME')
-        );
-        if ($mysqli->connect_error) {
-            $error = 'Ошибка подключения к базе данных.';
-        } else {
-            $mysqli->set_charset('utf8mb4');
-            $stmt = $mysqli->prepare('SELECT name, url, description FROM products WHERE name LIKE CONCAT(?, "%")');
-            $stmt->bind_param('s', $letter);
-            $stmt->execute();
-            $res = $stmt->get_result();
-            while ($row = $res->fetch_assoc()) {
-                $results[] = ['name'=>$row['name'], 'url'=>$row['url'], 'desc'=>$row['description']];
-            }
-            $stmt->close();
-            $mysqli->close();
+        require_once __DIR__.'/db.php';
+        $mysqli = get_db_connection();
+        $stmt = $mysqli->prepare('SELECT name, alias AS url, short_description FROM product WHERE name LIKE CONCAT(?, "%")');
+        $stmt->bind_param('s', $letter);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        while ($row = $res->fetch_assoc()) {
+            $results[] = [
+                'name' => $row['name'],
+                'url'  => 'product/'.htmlspecialchars($row['alias']).'.html',
+                'desc' => $row['short_description']
+            ];
         }
+        $stmt->close();
+        $mysqli->close();
     }
 }
 

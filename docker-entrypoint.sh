@@ -14,8 +14,8 @@ if [ -n "$DB_HOST" ]; then
     sleep 2
   done
 
-  exists=$(mysql -h "$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -sse "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$DB_NAME' AND table_name='products';")
-  if [ "$exists" -eq 0 ] || [ "$(mysql -h "$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -sse "SELECT COUNT(*) FROM products;")" -eq 0 ]; then
+  exists=$(mysql -h "$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -sse "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='$DB_NAME' AND table_name='product';")
+  if [ "$exists" -eq 0 ] || [ "$(mysql -h "$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" -sse "SELECT COUNT(*) FROM product;")" -eq 0 ]; then
     echo "Importing initial database data..."
     mysql --default-character-set=utf8mb4 -h "$DB_HOST" -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < /var/www/html/db/init.sql
   fi
