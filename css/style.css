@@ -226,9 +226,14 @@ hr {
 }
 
 .product-detail img {
+  max-width: 350px;
+  height: auto;
+  float: right;
+  margin: 0 0 10px 20px;
   border: 2px solid #ccc;
   border-radius: 4px;
 }
+.product-detail ul { list-style: square inside; margin-bottom: 12px; }
 
 .contacts input[type="text"],
 .contacts input[type="email"],

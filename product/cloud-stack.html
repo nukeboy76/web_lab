@@ -31,8 +31,10 @@
       <li><a href="../about.html">О нас</a></li>
       <li><a href="../catalog.html">Каталог</a></li>
       <li><a href="../contacts.html">Контакты</a></li>
+      <li><a href="../guestbook.php">Отзывы</a></li>
+      <li><a href="../register.html">Регистрация</a></li>
     </ul>
-    <form id="site-search">
+    <form id="site-search" method="get" action="../search.php">
       <input type="text" name="q" placeholder="поиск">
       <input type="submit" value="искать">
     </form>
@@ -49,13 +51,13 @@
       </ul>
     </aside>
 
-  <article>
+  <article class="product-detail">
     <h2>Cloud‑Stack</h2>
     <h3>Описание товара</h3>
     <a href="../images/cloud-full.jpg" target="_blank">
-      <img src="../images/cloud-full.jpg" alt="Cloud‑Stack" style="max-width:350px;float:right;margin:0 0 10px 20px">
+      <img src="../images/cloud-full.jpg" alt="Cloud‑Stack">
     </a>
-    <p>Cloud‑Stack — платформа для оркестрации контейнеров Docker и Kubernetes,
+    <p class="short-desc">Cloud‑Stack — платформа для оркестрации контейнеров Docker и Kubernetes,
        обеспечивающая быстрое развертывание и масштабирование SaaS‑приложений.</p>
 
     <h3>Характеристики товара</h3>
@@ -67,7 +69,7 @@
     </ul>
 
     <h3>Подробное описание товара</h3>
-    <p>Cloud‑Stack включает модуль управления сетью, хранилищем и аутентификацией.
+    <p class="long-desc">Cloud‑Stack включает модуль управления сетью, хранилищем и аутентификацией.
        Наше решение поддерживает гибридные и мульти‑облачные сценарии,
        а благодаря встроенному CI/CD‑плагину вы сможете ускорить выпуск новых версий
        без простоев для пользователей.</p>

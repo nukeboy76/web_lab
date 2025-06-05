@@ -31,8 +31,10 @@
       <li><a href="../about.html">О нас</a></li>
       <li><a href="../catalog.html">Каталог</a></li>
       <li><a href="../contacts.html">Контакты</a></li>
+      <li><a href="../guestbook.php">Отзывы</a></li>
+      <li><a href="../register.html">Регистрация</a></li>
     </ul>
-    <form id="site-search">
+    <form id="site-search" method="get" action="../search.php">
       <input type="text" name="q" placeholder="поиск">
       <input type="submit" value="искать">
     </form>
@@ -49,13 +51,13 @@
     </ul>
   </aside>
 
-  <article>
+  <article class="product-detail">
     <h2>Mobile‑Suite</h2>
     <h3>Описание товара</h3>
     <a href="../images/mobile-full.jpg" target="_blank">
-      <img src="../images/mobile-thumb.jpg" alt="Mobile‑Suite" style="max-width:350px;float:right;margin:0 0 10px 20px">
+      <img src="../images/mobile-thumb.jpg" alt="Mobile‑Suite">
     </a>
-    <p>Mobile‑Suite — комплексная разработка нативных мобильных приложений для iOS и Android с полным циклом поддержки
+    <p class="short-desc">Mobile‑Suite — комплексная разработка нативных мобильных приложений для iOS и Android с полным циклом поддержки
        и публикации в App Store и Google Play.</p>
 
     <h3>Характеристики товара</h3>
@@ -67,7 +69,7 @@
     </ul>
 
     <h3>Подробное описание товара</h3>
-    <p>В состав Mobile‑Suite входят дизайн‑макеты, прототипирование, написание кода, CI/CD‑конвейер и публикация.
+    <p class="long-desc">В состав Mobile‑Suite входят дизайн‑макеты, прототипирование, написание кода, CI/CD‑конвейер и публикация.
        Мы обеспечиваем безопасность хранения пользовательских данных, соблюдаем требования App Store и Play Market,
        а также гарантируем трехмесячную поддержку после запуска проекта.</p>
   </article>
