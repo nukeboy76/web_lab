@@ -5,7 +5,6 @@ RUN apt-get update \
     && apt-get install -y default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# enable mysqli extension for PHP
 RUN docker-php-ext-install mysqli
 
 # Copy website source
