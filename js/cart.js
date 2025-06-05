@@ -46,7 +46,6 @@ class Cart {
   }
 }
 
-const cardAddArr = Array.from(document.querySelectorAll('.card__add'));
 const cartNum = document.querySelector('#cart_num');
 const cartBtn = document.querySelector('#cart');
 const popup = document.querySelector('.popup');
@@ -81,18 +80,21 @@ if (popupClose) {
   });
 }
 
-cardAddArr.forEach(cardAdd => {
-  cardAdd.addEventListener('click', e => {
-    e.preventDefault();
-    const card = e.target.closest('.card');
-    const product = new Product(card);
-    const saved = JSON.parse(localStorage.getItem('cart'));
-    myCart.products = saved.products || [];
-    myCart.addProduct(product);
-    localStorage.setItem('cart', JSON.stringify(myCart));
-    if (cartNum) cartNum.textContent = myCart.count;
-  });
+// use event delegation so dynamically created cards work as well
+document.addEventListener('click', e => {
+  const addBtn = e.target.closest('.card__add');
+  if (!addBtn) return;
+  e.preventDefault();
+  const card = addBtn.closest('.card');
+  if (!card) return;
+  const product = new Product(card);
+  const saved = JSON.parse(localStorage.getItem('cart'));
+  myCart.products = saved.products || [];
+  myCart.addProduct(product);
+  localStorage.setItem('cart', JSON.stringify(myCart));
+  if (cartNum) cartNum.textContent = myCart.count;
 });
+
 
 function popupContainerFill() {
   if (!popupProductList) return;
