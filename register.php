@@ -45,7 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <h2>Регистрация</h2>
 <?php if($success): ?>
-<p>Регистрация успешна.</p>
+<p>Регистрация прошла успешно.</p>
+<script>
+localStorage.setItem('user', <?=json_encode($name)?>);
+setTimeout(function(){ location.href='index.html'; }, 2000);
+</script>
 <?php else: ?>
 <?php if($errors): ?>
 <ul>
