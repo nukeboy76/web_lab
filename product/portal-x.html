@@ -30,8 +30,10 @@
       <li><a href="../about.html">О нас</a></li>
       <li><a href="../catalog.html">Каталог</a></li>
       <li><a href="../contacts.html">Контакты</a></li>
+      <li><a href="../guestbook.php">Отзывы</a></li>
+      <li><a href="../register.html">Регистрация</a></li>
     </ul>
-    <form id="site-search">
+    <form id="site-search" method="get" action="../search.php">
       <input type="text" name="q" placeholder="поиск">
       <input type="submit" value="искать">
     </form>
@@ -48,13 +50,13 @@
     </ul>
   </aside>
 
-  <article>
+  <article class="product-detail">
     <h2>Portal‑X</h2>
     <h3>Описание товара</h3>
     <a href="../images/portal-full.jpg" target="_blank">
-      <img src="../images/portal-thumb.jpg" alt="Portal‑X" style="max-width:350px;float:right;margin:0 0 10px 20px">
+      <img src="../images/portal-thumb.jpg" alt="Portal‑X">
     </a>
-    <p>Portal‑X — корпоративный портал с единой точкой входа (SSO),
+    <p class="short-desc">Portal‑X — корпоративный портал с единой точкой входа (SSO),
        каталогом сервисов и расширенным набором модулей для работы с документами.</p>
 
     <h3>Характеристики товара</h3>
@@ -66,7 +68,7 @@
     </ul>
 
     <h3>Подробное описание товара</h3>
-    <p>Portal‑X поддерживает интеграцию с Outlook и Teams, имеет мобильную адаптацию
+    <p class="long-desc">Portal‑X поддерживает интеграцию с Outlook и Teams, имеет мобильную адаптацию
        и модуль корпоративного чата. Административная панель позволяет быстро создавать
        новые разделы, назначать ответственных и подключать внешние API.</p>
   </article>

@@ -28,8 +28,10 @@
       <li><a href="about.html">О нас</a></li>
       <li><a href="catalog.html">Каталог</a></li>
       <li><a href="contacts.html">Контакты</a></li>
+      <li><a href="guestbook.php">Отзывы</a></li>
+      <li><a href="register.html">Регистрация</a></li>
     </ul>
-    <form id="site-search">
+    <form id="site-search" method="get" action="search.php">
       <input type="text" name="q" placeholder="поиск">
       <input type="submit" value="искать">
     </form>
@@ -60,7 +62,7 @@
   </iframe>
 
     <h2>Напишите нам</h2>
-    <form id="contact-form">
+    <form id="contact-form" class="contacts">
       <label>Имя
         <input type="text" name="name" required>
       </label>
