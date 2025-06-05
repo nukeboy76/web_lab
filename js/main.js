@@ -11,8 +11,22 @@ document.addEventListener('DOMContentLoaded', () => {
             info = document.createElement('div');
             info.id = 'user-info';
             loginForm.after(info);
+        } else {
+            info.innerHTML = '';
         }
-        info.textContent = `Вы вошли как ${user}`;
+        const icon = document.createElement('span');
+        icon.className = 'user-icon';
+        icon.textContent = '\u{1F464}';
+        const logout = document.createElement('button');
+        logout.id = 'logout-btn';
+        logout.textContent = 'выход';
+        logout.addEventListener('click', () => {
+            localStorage.removeItem('user');
+            info.remove();
+            loginForm.style.display = '';
+        });
+        info.appendChild(icon);
+        info.appendChild(logout);
     }
 
     if (loginForm) {

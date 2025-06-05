@@ -369,6 +369,16 @@ input[type="submit"]:hover {
   cursor: pointer;
 }
 
+#user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-icon {
+  font-size: 1.2em;
+}
+
 #site-search {
   display: flex;
   gap: 6px;
