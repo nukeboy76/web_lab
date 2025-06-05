@@ -43,18 +43,18 @@
 
   <article>
     <h2>Регистрация</h2>
-    <form class="contacts">
+    <form class="contacts" method="post" action="register.php">
       <label><span>Имя</span>
-        <input type="text" required>
+        <input type="text" name="name" required>
       </label>
       <label><span>Email</span>
-        <input type="email" required>
+        <input type="email" name="email" required>
       </label>
       <label><span>Пароль</span>
-        <input type="password" required>
+        <input type="password" name="pass" required>
       </label>
       <label><span>Повторите пароль</span>
-        <input type="password" required>
+        <input type="password" name="pass2" required>
       </label>
       <input type="submit" value="Зарегистрироваться">
     </form>
