@@ -29,8 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const logout = document.createElement('button');
         logout.id = 'logout-btn';
         logout.textContent = 'выход';
+
         logout.addEventListener('click', async () => {
             await fetch('logout.php');
+
             info.remove();
             loginForm.style.display = '';
         });
