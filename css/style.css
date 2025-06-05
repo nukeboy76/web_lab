@@ -226,6 +226,10 @@ hr {
 }
 
 .product-detail img {
+  max-width: 350px;
+  height: auto;
+  float: right;
+  margin: 0 0 10px 20px;
   border: 2px solid #ccc;
   border-radius: 4px;
 }
