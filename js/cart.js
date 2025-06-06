@@ -93,6 +93,9 @@ document.addEventListener('click', e => {
   myCart.addProduct(product);
   localStorage.setItem('cart', JSON.stringify(myCart));
   if (cartNum) cartNum.textContent = myCart.count;
+  if (popup && popup.classList.contains('popup--open')) {
+    popupContainerFill();
+  }
 });
 
 
